@@ -1,0 +1,5 @@
+/dist
+**/*.test.js
+**/__mocks__/**/*.*
+__mocks__
+coverage/**/*.*
