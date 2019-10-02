@@ -4,7 +4,7 @@
       <section class="search">
         <div class="search-input">
           <input
-            v-model="user"
+            v-model="userInput"
             class="input"
             placeholder="Filter by username"
             aria-label="Filter by username"
@@ -35,6 +35,7 @@
           </button>
         </div>
       </section>
+      <section class="user-card">{{ user.login }}</section>
       <section class="list">
         <p style="color: red;">{{ error }}</p>
         <h2>{{title}}</h2>
@@ -61,7 +62,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      user: '',
+      userInput: '',
       itens: [],
       title: '',
       loading: false,
@@ -71,17 +72,20 @@ export default {
   computed: {
     ...mapGetters({
       repos: 'repos/repos',
-      starred: 'starred/starred'
+      starred: 'starred/starred',
+      user: 'user/user'
     })
   },
   methods: {
     ...mapActions({
       searchRepos: 'repos/searchRepos',
-      searchStarred: 'starred/searchStarred'
+      searchStarred: 'starred/searchStarred',
+      searchUser: 'user/searchUser'
     }),
     async loadRepos() {
       try {
-        await this.searchRepos(this.user)
+        await this.searchUser(this.userInput)
+        await this.searchRepos(this.userInput)
         this.itens = this.repos
         this.title = 'Repos'
         this.error = ''
@@ -94,7 +98,8 @@ export default {
     },
     async loadStarred() {
       try {
-        await this.searchStarred(this.user)
+        await this.searchUser(this.userInput)
+        await this.searchStarred(this.userInput)
         this.itens = this.starred
         this.title = 'Starred'
         this.error = ''
