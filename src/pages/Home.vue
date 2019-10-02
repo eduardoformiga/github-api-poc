@@ -35,21 +35,45 @@
           </button>
         </div>
       </section>
-      <section class="user-card">{{ user.login }}</section>
-      <section class="list">
-        <p style="color: red;">{{ error }}</p>
-        <h2>{{title}}</h2>
-        <ul>
-          <li
-            v-for="(item, index) in itens"
-            :key="index"
-          >
-            <div class="content">
-              <span>{{ item.name }}</span>
-              <p>{{ item.description }}</p>
-            </div>
-          </li>
-        </ul>
+      <section
+        v-if="!hasUser"
+        class="errors"
+      >
+        <p style="color: red;">{{ errorMessage }}</p>
+      </section>
+      <section
+        v-if="hasUser"
+        class="results"
+      >
+        <h2>{{userTitle}}</h2>
+        <section class="user-card">
+          <img
+            class="user-card--avatar"
+            :src="user.avatar_url"
+            alt="Avatar da conta do Github"
+          />
+          <div class="user-card--content">
+            <h1>{{ user.name }}</h1>
+            <p>
+              <span>Login:</span>
+              {{ user.login }}
+            </p>
+          </div>
+        </section>
+        <h2>{{listTitle}}</h2>
+        <section class="list">
+          <ul>
+            <li
+              v-for="(item, index) in itens"
+              :key="index"
+            >
+              <div class="content">
+                <h1>{{ item.name }}</h1>
+                <p>{{ item.description }}</p>
+              </div>
+            </li>
+          </ul>
+        </section>
       </section>
     </main>
   </section>
@@ -57,16 +81,18 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { ErrorHandler } from '../helpers/ErrorHandler'
 
 export default {
   name: 'Home',
   data() {
     return {
-      userInput: '',
+      userInput: 'programadorabordo',
       itens: [],
-      title: '',
+      listTitle: '',
+      userTitle: '',
       loading: false,
-      error: ''
+      errorMessage: ''
     }
   },
   computed: {
@@ -74,41 +100,47 @@ export default {
       repos: 'repos/repos',
       starred: 'starred/starred',
       user: 'user/user'
-    })
+    }),
+    hasUser() {
+      return !!this.user
+    }
   },
   methods: {
     ...mapActions({
       searchRepos: 'repos/searchRepos',
       searchStarred: 'starred/searchStarred',
-      searchUser: 'user/searchUser'
+      searchUser: 'user/searchUser',
+      clearUser: 'user/clearUser'
     }),
     async loadRepos() {
       try {
+        this.clearUser()
         await this.searchUser(this.userInput)
         await this.searchRepos(this.userInput)
         this.itens = this.repos
-        this.title = 'Repos'
-        this.error = ''
-      } catch ({ message }) {
-        console.log(message)
-        this.error = '😕 Ops, não foi possível encontrar dados. '
-        this.itens = []
-        this.title = ''
+        this.listTitle = 'Repos'
+        this.userTitle = 'User'
+        this.errorMessage = ''
+      } catch (e) {
+        this.handleError(e)
       }
     },
     async loadStarred() {
       try {
+        this.clearUser()
         await this.searchUser(this.userInput)
         await this.searchStarred(this.userInput)
         this.itens = this.starred
-        this.title = 'Starred'
-        this.error = ''
-      } catch ({ message }) {
-        console.log(message)
-        this.error = '😕 Ops, não foi possível encontrar dados. '
-        this.itens = []
-        this.title = ''
+        this.listTitle = 'Starred'
+        this.userTitle = 'User'
+        this.errorMessage = ''
+      } catch (e) {
+        this.handleError(e)
       }
+    },
+    handleError(e) {
+      const errorHandler = new ErrorHandler(e)
+      this.errorMessage = errorHandler.handleMessage()
     }
   }
 }
@@ -194,10 +226,49 @@ main {
     }
   }
 
+  .user-card {
+    display: grid;
+    grid-template-columns: 100px auto;
+    background-color: white;
+    border-radius: 1em;
+    padding: 0.8em;
+    margin: 0.8em;
+    box-shadow: $card-shadow;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .user-card--avatar {
+      width: 100%;
+      border-radius: 50%;
+    }
+
+    .user-card--content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-left: 0.5em;
+
+      h1 {
+        font-weight: bold;
+      }
+      p {
+        font-size: 0.8rem;
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
   h2 {
     font-size: 0.8em;
     font-weight: bold;
-    margin: 0.8em;
+    margin: 1.2em 0.8em 0.8em;
     text-transform: uppercase;
   }
 

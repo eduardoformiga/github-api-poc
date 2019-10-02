@@ -1,9 +1,7 @@
 import axios from 'axios'
 
 const state = {
-  user: {
-    login: ''
-  }
+  user: null
 }
 
 const getters = {
@@ -15,6 +13,9 @@ const getters = {
 const mutations = {
   setUser(state, payload) {
     state.user = payload
+  },
+  clearUser(state) {
+    state.user = null
   }
 }
 
@@ -22,6 +23,9 @@ const actions = {
   async searchUser({ commit }, user) {
     const result = await axios.get(`https://api.github.com/users/${user}`)
     commit('setUser', result.data)
+  },
+  clearUser({ commit }) {
+    commit('clearUser')
   }
 }
 
