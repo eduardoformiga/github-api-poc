@@ -89,6 +89,7 @@ export default {
         console.log(message)
         this.error = '😕 Ops, não foi possível encontrar dados. '
         this.itens = []
+        this.title = ''
       }
     },
     async loadStarred() {
