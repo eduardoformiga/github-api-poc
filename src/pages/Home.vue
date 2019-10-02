@@ -39,7 +39,7 @@
         v-if="!hasUser"
         class="errors"
       >
-        <p style="color: red;">{{ errorMessage }}</p>
+        <p>{{ errorMessage }}</p>
       </section>
       <section
         v-if="hasUser"
@@ -172,34 +172,34 @@ main {
       padding: 1em;
       padding-left: 3em;
       border-radius: 0.8em;
-      background: #ffffff;
+      background: $white;
       border: none;
       font-size: 1rem;
       flex-grow: 1;
 
       &::-webkit-input-placeholder {
-        color: #65737e;
+        color: $placeholder-color;
       }
 
       &:-moz-placeholder {
         /* Firefox 18- */
-        color: #65737e;
+        color: $placeholder-color;
       }
 
       &::-moz-placeholder {
         /* Firefox 19+ */
-        color: #65737e;
+        color: $placeholder-color;
       }
 
       &:-ms-input-placeholder {
-        color: #65737e;
+        color: $placeholder-color;
       }
 
       &:hover,
       &:focus,
       &:active {
         outline: none;
-        background: #ffffff;
+        background: $white;
       }
     }
 
@@ -208,7 +208,7 @@ main {
       font-size: 1em;
       background-color: $primary-color;
       border: 0;
-      color: white;
+      color: $white;
       padding: 0.6em 1em;
       margin: 1em 0.6em 0.6em 0;
       cursor: pointer;
@@ -226,10 +226,21 @@ main {
     }
   }
 
+  .errors {
+    font-size: 1rem;
+    font-weight: bold;
+    color: $error-color;
+    background-color: $white;
+    border-radius: 1em;
+    padding: 0.8em;
+    margin: 0.8em;
+    box-shadow: $card-shadow;
+  }
+
   .user-card {
     display: grid;
     grid-template-columns: 100px auto;
-    background-color: white;
+    background-color: $white;
     border-radius: 1em;
     padding: 0.8em;
     margin: 0.8em;
@@ -273,7 +284,7 @@ main {
   }
 
   li {
-    background-color: white;
+    background-color: $white;
     border-radius: 1em;
     padding: 0.8em;
     margin: 0.8em;
