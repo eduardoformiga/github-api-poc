@@ -36,17 +36,20 @@
         </div>
       </section>
       <section
-        v-if="!hasUser"
+        v-if="hasError"
         class="errors"
       >
-        <p>{{ errorMessage }}</p>
+        <p>{{ errorHandler.handleMessage() }}</p>
       </section>
       <section
         v-if="hasUser"
         class="results"
       >
-        <h2>{{userTitle}}</h2>
-        <section class="user-card">
+        <h2>User</h2>
+        <section
+          class="user-card"
+          @click="redirectDetailsPage"
+        >
           <img
             class="user-card--avatar"
             :src="user.avatar_url"
@@ -90,9 +93,7 @@ export default {
       userInput: 'programadorabordo',
       itens: [],
       listTitle: '',
-      userTitle: '',
-      loading: false,
-      errorMessage: ''
+      errorHandler: null
     }
   },
   computed: {
@@ -103,6 +104,9 @@ export default {
     }),
     hasUser() {
       return !!this.user
+    },
+    hasError() {
+      return !!this.errorHandler
     }
   },
   methods: {
@@ -119,8 +123,7 @@ export default {
         await this.searchRepos(this.userInput)
         this.itens = this.repos
         this.listTitle = 'Repos'
-        this.userTitle = 'User'
-        this.errorMessage = ''
+        this.errorHandler = null
       } catch (e) {
         this.handleError(e)
       }
@@ -132,15 +135,16 @@ export default {
         await this.searchStarred(this.userInput)
         this.itens = this.starred
         this.listTitle = 'Starred'
-        this.userTitle = 'User'
-        this.errorMessage = ''
+        this.errorHandler = null
       } catch (e) {
         this.handleError(e)
       }
     },
     handleError(e) {
-      const errorHandler = new ErrorHandler(e)
-      this.errorMessage = errorHandler.handleMessage()
+      this.errorHandler = new ErrorHandler(e)
+    },
+    redirectDetailsPage() {
+      this.$router.push({ path: `/details/${this.user.login}` })
     }
   }
 }
