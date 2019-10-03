@@ -6,8 +6,8 @@
           <input
             v-model="userInput"
             class="input"
-            placeholder="Filtrar por username"
-            aria-label="Filtrar por username"
+            :placeholder="localeLabel('input')"
+            :aria-label="localeLabel('input')"
           />
           <font-awesome-icon
             icon="search"
@@ -22,7 +22,8 @@
             <font-awesome-icon
               :icon="['fab','github']"
               class="github-icon"
-            />repos
+            />
+            {{localeLabel('repos')}}
           </button>
           <button
             class="button button--last"
@@ -31,7 +32,8 @@
             <font-awesome-icon
               icon="star"
               class="star-icon"
-            />starred
+            />
+            {{localeLabel('starred')}}
           </button>
         </div>
       </section>
@@ -45,7 +47,7 @@
         v-if="hasUser"
         class="results"
       >
-        <h2>User</h2>
+        <h2>{{localeLabel('user')}}</h2>
         <section
           class="user-card"
           @click="redirectDetailsPage"
@@ -53,12 +55,12 @@
           <img
             class="user-card--avatar"
             :src="user.avatar_url"
-            alt="Avatar da conta do Github"
+            :alt="localeLabel('imgAlt')"
           />
           <div class="user-card--content">
             <h1>{{ user.name }}</h1>
             <p>
-              <span>Login:</span>
+              <span>{{localeLabel('login')}}</span>
               {{ user.login }}
             </p>
           </div>
@@ -85,6 +87,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { ErrorHandler } from '../helpers/ErrorHandler'
+import messages from '../helpers/messages'
 
 export default {
   name: 'Home',
@@ -119,6 +122,10 @@ export default {
       searchUser: 'user/searchUser',
       clearUser: 'user/clearUser'
     }),
+    localeLabel(param) {
+      const _base = 'home'
+      return messages[_base][param]
+    },
     async loadRepos() {
       try {
         this.clearUser()

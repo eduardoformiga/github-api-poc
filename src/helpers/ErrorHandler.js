@@ -13,6 +13,6 @@ export class ErrorHandler {
   }
 
   handleMessage() {
-    return messages[this.statusCode()] || messages.default
+    return messages.errors[this.statusCode()] || messages.errors.default
   }
 }

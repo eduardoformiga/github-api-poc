@@ -6,16 +6,28 @@
           <router-link
             to="/"
             class="logo"
-          >Github View</router-link>
+          >{{ localeLabel('title') }}</router-link>
         </div>
         <div class="hero">
-          <div class="subtitle">Bem vindo ao Github view! 👋 Procure o que cada usuário está fazendo</div>
+          <div class="subtitle">{{ localeLabel('subTitle') }}</div>
         </div>
       </div>
     </header>
     <router-view />
   </div>
 </template>
+
+<script>
+import messages from './helpers/messages'
+export default {
+  methods: {
+    localeLabel(param) {
+      const _base = 'app'
+      return messages[_base][param]
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

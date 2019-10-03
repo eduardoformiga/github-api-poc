@@ -3,13 +3,13 @@
     <router-link
       to="/"
       class="link"
-    >Voltar para Home</router-link>
+    >{{ localeLabel('link') }}</router-link>
     <section class="user-card">
       <h1>{{ user.name }}</h1>
       <img
         class="user-card--avatar"
         :src="user.avatar_url"
-        alt="Avatar da conta do Github"
+        :alt="localeLabel('imgAlt')"
       />
       <div class="user-card--content">
         <div
@@ -27,6 +27,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import messages from '../helpers/messages'
 
 export default {
   name: 'Datails',
@@ -34,6 +35,12 @@ export default {
     ...mapGetters({
       user: 'user/user'
     })
+  },
+  methods: {
+    localeLabel(param) {
+      const _base = 'details'
+      return messages[_base][param]
+    }
   }
 }
 </script>
