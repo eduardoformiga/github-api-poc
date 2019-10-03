@@ -51,12 +51,6 @@ h2 {
   padding: 0.8em;
   margin: 0.8em;
   box-shadow: $card-shadow;
-  cursor: pointer;
-  transition: 0.5s ease-out;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
 
   h1 {
     font-weight: bold;
