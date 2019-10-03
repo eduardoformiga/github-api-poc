@@ -17,11 +17,12 @@ const mutations = {
 }
 
 const actions = {
-  async searchStarred({ commit }, user) {
+  async searchStarred({ commit, dispatch }, user) {
     const result = await axios.get(
       `https://api.github.com/users/${user}/starred`
     )
     commit('setStarred', result.data)
+    dispatch('setPreference', 'starred', { root: true })
   }
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { toLocaleString } from '../../helpers/date.helper'
 const state = {
   user: null
 }
@@ -12,7 +12,11 @@ const getters = {
 
 const mutations = {
   setUser(state, payload) {
-    state.user = payload
+    state.user = {
+      ...payload,
+      updated_at: toLocaleString(payload.updated_at, 'pt-br'),
+      created_at: toLocaleString(payload.created_at, 'pt-br')
+    }
   },
   clearUser(state) {
     state.user = null

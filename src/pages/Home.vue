@@ -6,8 +6,8 @@
           <input
             v-model="userInput"
             class="input"
-            placeholder="Filter by username"
-            aria-label="Filter by username"
+            placeholder="Filtrar por username"
+            aria-label="Filtrar por username"
           />
           <font-awesome-icon
             icon="search"
@@ -63,7 +63,7 @@
             </p>
           </div>
         </section>
-        <h2>{{listTitle}}</h2>
+        <h2>{{ preference }}</h2>
         <section class="list">
           <ul>
             <li
@@ -90,9 +90,8 @@ export default {
   name: 'Home',
   data() {
     return {
-      userInput: 'programadorabordo',
+      userInput: '',
       itens: [],
-      listTitle: '',
       errorHandler: null
     }
   },
@@ -100,7 +99,8 @@ export default {
     ...mapGetters({
       repos: 'repos/repos',
       starred: 'starred/starred',
-      user: 'user/user'
+      user: 'user/user',
+      preference: 'preference'
     }),
     hasUser() {
       return !!this.user
@@ -108,6 +108,9 @@ export default {
     hasError() {
       return !!this.errorHandler
     }
+  },
+  mounted() {
+    this.getPreferences()
   },
   methods: {
     ...mapActions({
@@ -122,7 +125,6 @@ export default {
         await this.searchUser(this.userInput)
         await this.searchRepos(this.userInput)
         this.itens = this.repos
-        this.listTitle = 'Repos'
         this.errorHandler = null
       } catch (e) {
         this.handleError(e)
@@ -134,7 +136,6 @@ export default {
         await this.searchUser(this.userInput)
         await this.searchStarred(this.userInput)
         this.itens = this.starred
-        this.listTitle = 'Starred'
         this.errorHandler = null
       } catch (e) {
         this.handleError(e)
@@ -145,6 +146,15 @@ export default {
     },
     redirectDetailsPage() {
       this.$router.push({ path: `/details/${this.user.login}` })
+    },
+    getPreferences() {
+      this.itens =
+        this.preference === 'repos'
+          ? this.repos
+          : this.preference === 'starred'
+          ? this.starred
+          : []
+      this.userInput = this.user && this.user.login ? this.user.login : ''
     }
   }
 }

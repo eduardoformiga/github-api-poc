@@ -17,9 +17,10 @@ const mutations = {
 }
 
 const actions = {
-  async searchRepos({ commit }, user) {
+  async searchRepos({ commit, dispatch }, user) {
     const result = await axios.get(`https://api.github.com/users/${user}/repos`)
     commit('setRepos', result.data)
+    dispatch('setPreference', 'repos', { root: true })
   }
 }
 
