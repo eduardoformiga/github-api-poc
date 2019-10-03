@@ -19,7 +19,7 @@ const mutations = {
 const actions = {
   async searchStarred({ commit, dispatch }, user) {
     const result = await getStarredByUser(user)
-    commit('setStarred', result.data)
+    commit('setStarred', result)
     dispatch('setPreference', 'starred', { root: true })
   }
 }

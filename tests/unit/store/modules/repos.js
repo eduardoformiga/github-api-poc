@@ -19,7 +19,7 @@ const mutations = {
 const actions = {
   async searchRepos({ commit, dispatch }, user) {
     const result = await getReposByUser(user)
-    commit('setRepos', result.data)
+    commit('setRepos', result)
     dispatch('setPreference', 'repos', { root: true })
   }
 }

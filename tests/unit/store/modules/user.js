@@ -27,7 +27,7 @@ const mutations = {
 const actions = {
   async searchUser({ commit }, user) {
     const result = await getUserProfile(user)
-    commit('setUser', result.data)
+    commit('setUser', result)
   },
   clearUser({ commit }) {
     commit('clearUser')
