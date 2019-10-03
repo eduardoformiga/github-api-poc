@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { toLocaleString } from '../../helpers/date.helper'
+import { getUserProfile } from '../../services/github.services'
+
 const state = {
   user: null
 }
@@ -25,7 +26,7 @@ const mutations = {
 
 const actions = {
   async searchUser({ commit }, user) {
-    const result = await axios.get(`https://api.github.com/users/${user}`)
+    const result = await getUserProfile(user)
     commit('setUser', result.data)
   },
   clearUser({ commit }) {

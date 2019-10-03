@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { getStarredByUser } from '../../services/github.services'
 
 const state = {
   starred: []
@@ -18,9 +18,7 @@ const mutations = {
 
 const actions = {
   async searchStarred({ commit, dispatch }, user) {
-    const result = await axios.get(
-      `https://api.github.com/users/${user}/starred`
-    )
+    const result = await getStarredByUser(user)
     commit('setStarred', result.data)
     dispatch('setPreference', 'starred', { root: true })
   }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { getReposByUser } from '../../services/github.services'
 
 const state = {
   repos: []
@@ -18,7 +18,7 @@ const mutations = {
 
 const actions = {
   async searchRepos({ commit, dispatch }, user) {
-    const result = await axios.get(`https://api.github.com/users/${user}/repos`)
+    const result = await getReposByUser(user)
     commit('setRepos', result.data)
     dispatch('setPreference', 'repos', { root: true })
   }
