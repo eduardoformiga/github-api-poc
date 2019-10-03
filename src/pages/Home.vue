@@ -152,7 +152,7 @@ export default {
       this.errorHandler = new ErrorHandler(e)
     },
     redirectDetailsPage() {
-      this.$router.push({ path: `/details/${this.user.login}` })
+      this.$router.push({ path: `/details` })
     },
     getPreferences() {
       this.itens =

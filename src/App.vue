@@ -19,6 +19,7 @@
 
 <script>
 import messages from './helpers/messages'
+
 export default {
   methods: {
     localeLabel(param) {

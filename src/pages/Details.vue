@@ -30,7 +30,7 @@ import { mapGetters } from 'vuex'
 import messages from '../helpers/messages'
 
 export default {
-  name: 'Datails',
+  name: 'Details',
   computed: {
     ...mapGetters({
       user: 'user/user'
