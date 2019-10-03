@@ -2,23 +2,23 @@
   <div class="details">
     <router-link
       to="/"
-      class="link"
+      class="home-link"
     >{{ localeLabel('link') }}</router-link>
     <section class="user-card">
       <h1>{{ user.name }}</h1>
       <img
-        class="user-card--avatar"
+        class="user-card__avatar"
         :src="user.avatar_url"
         :alt="localeLabel('imgAlt')"
       />
-      <div class="user-card--content">
+      <div class="user-card__content">
         <div
           v-for="(value, name) in user"
           :key="name"
-          class="row"
+          class="user-card__row"
         >
-          <span class="label">{{ name }}</span>
-          <span class="value">{{ value }}</span>
+          <span class="user-card__label">{{ name }}</span>
+          <span class="user-card__value">{{ value }}</span>
         </div>
       </div>
     </section>
@@ -49,7 +49,7 @@ export default {
 .details {
   padding: 1em 0;
 
-  .link {
+  .home-link {
     color: $primary-color;
     text-decoration: none;
     margin: 1em;
@@ -80,13 +80,13 @@ export default {
       padding: 0.8em;
     }
 
-    .user-card--avatar {
+    .user-card__avatar {
       width: 200px;
       border-radius: 50%;
       padding: 0.8em;
     }
 
-    .user-card--content {
+    .user-card__content {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -94,7 +94,7 @@ export default {
       padding-left: 0.5em;
       font-size: 0.6em;
 
-      .row {
+      .user-card__row {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -108,13 +108,13 @@ export default {
           border-bottom: none;
         }
 
-        .label {
+        .user-card__label {
           font-weight: bold;
           text-transform: uppercase;
           padding-right: 1em;
           min-width: 120px;
         }
-        .value {
+        .user-card__value {
           color: $placeholder-color;
         }
       }
@@ -124,7 +124,7 @@ export default {
 
 @media only screen and (min-width: 768px) {
   .user-card {
-    .user-card--content {
+    .user-card__content {
       font-size: 0.8em;
     }
   }

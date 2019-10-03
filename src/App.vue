@@ -2,14 +2,11 @@
   <div id="app">
     <header>
       <div class="container">
-        <div class="navbar">
-          <router-link
-            to="/"
-            class="logo"
-          >{{ localeLabel('title') }}</router-link>
+        <div class="container__navbar">
+          <router-link to="/">{{ localeLabel('title') }}</router-link>
         </div>
-        <div class="hero">
-          <div class="subtitle">{{ localeLabel('subTitle') }}</div>
+        <div class="container__hero">
+          <div>{{ localeLabel('subTitle') }}</div>
         </div>
       </div>
     </header>
@@ -46,21 +43,21 @@ header {
     margin: 0 auto;
     width: 90%;
 
-    .navbar {
+    .container__navbar {
       display: flex;
       justify-content: center;
       font-size: 2rem;
       font-weight: bold;
 
       a {
-        color: white;
+        color: $white;
         text-decoration: none;
       }
     }
 
-    .hero {
+    .container__hero {
       background-color: $primary-color;
-      color: white;
+      color: $white;
       text-align: center;
       padding: 1.5em 0;
     }

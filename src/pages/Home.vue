@@ -2,36 +2,36 @@
   <section>
     <main>
       <section class="search">
-        <div class="search-input">
+        <div class="search__container">
           <input
             v-model="userInput"
-            class="input"
+            class="search__input"
             :placeholder="localeLabel('input')"
             :aria-label="localeLabel('input')"
           />
           <font-awesome-icon
             icon="search"
-            class="search-icon"
+            class="search__icon"
           />
         </div>
-        <div class="search-actions">
+        <div class="search__actions">
           <button
-            class="button"
+            class="search__button"
             @click="loadRepos"
           >
             <font-awesome-icon
               :icon="['fab','github']"
-              class="github-icon"
+              class="search__button--icon"
             />
             {{localeLabel('repos')}}
           </button>
           <button
-            class="button button--last"
+            class="search__button"
             @click="loadStarred"
           >
             <font-awesome-icon
               icon="star"
-              class="star-icon"
+              class="search__button--icon"
             />
             {{localeLabel('starred')}}
           </button>
@@ -53,11 +53,11 @@
           @click="redirectDetailsPage"
         >
           <img
-            class="user-card--avatar"
+            class="user-card__avatar"
             :src="user.avatar_url"
             :alt="localeLabel('imgAlt')"
           />
-          <div class="user-card--content">
+          <div class="user-card__content">
             <h1>{{ user.name }}</h1>
             <p>
               <span>{{localeLabel('login')}}</span>
@@ -66,13 +66,13 @@
           </div>
         </section>
         <h2>{{ preference }}</h2>
-        <section class="list">
-          <ul>
+        <section>
+          <ul class="results__list">
             <li
               v-for="(item, index) in itens"
               :key="index"
             >
-              <div class="content">
+              <div class="results__item">
                 <h1>{{ item.name }}</h1>
                 <p>{{ item.description }}</p>
               </div>
@@ -177,19 +177,19 @@ main {
     flex-direction: column;
     margin: 0.8em;
 
-    .search-input {
+    .search__container {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: flex-start;
     }
 
-    .search-icon {
+    .search__icon {
       position: absolute;
       left: 1em;
     }
 
-    .input {
+    .search__input {
       padding: 1em;
       padding-left: 3em;
       border-radius: 0.8em;
@@ -224,7 +224,7 @@ main {
       }
     }
 
-    .button {
+    .search__button {
       min-width: 7em;
       font-size: 1em;
       background-color: $primary-color;
@@ -235,8 +235,7 @@ main {
       cursor: pointer;
       border-radius: 0.4em;
 
-      .star-icon,
-      .github-icon {
+      .search__button--icon {
         padding-right: 0.5em;
       }
 
@@ -273,12 +272,12 @@ main {
       transform: translateY(-5px);
     }
 
-    .user-card--avatar {
+    .user-card__avatar {
       width: 100%;
       border-radius: 50%;
     }
 
-    .user-card--content {
+    .user-card__content {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -318,7 +317,7 @@ main {
     }
   }
 
-  .content {
+  .results__item {
     padding: 0.6em;
     span {
       display: block;
@@ -330,11 +329,9 @@ main {
 }
 
 @media only screen and (min-width: 768px) {
-  .list {
-    ul {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    }
+  .results__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   }
 }
 </style>
