@@ -4,7 +4,7 @@
       to="/"
       class="home-link"
     >{{ localeLabel('link') }}</router-link>
-    <section class="user-card">
+    <section v-if="user" class="user-card">
       <h1>{{ user.name }}</h1>
       <img
         class="user-card__avatar"

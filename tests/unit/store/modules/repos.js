@@ -13,6 +13,9 @@ const getters = {
 const mutations = {
   setRepos(state, payload) {
     state.repos = payload
+  },
+  clearRepos(state) {
+    state.repos = []
   }
 }
 
@@ -21,6 +24,9 @@ const actions = {
     const result = await getReposByUser(user)
     commit('setRepos', result)
     dispatch('setPreference', 'repos', { root: true })
+  },
+  clearRepos({ commit }) {
+    commit('clearRepos')
   }
 }
 

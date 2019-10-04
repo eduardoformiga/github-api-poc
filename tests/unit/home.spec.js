@@ -1,23 +1,31 @@
 import { expect } from 'chai'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Home from '@/pages/Home.vue'
-import store from './store'
+import { store, clearStore } from './store'
 import VueRouter from 'vue-router'
+import routes from './helpers/routes'
 
 describe('Home.vue', () => {
-  const localVue = createLocalVue()
-  localVue.component('font-awesome-icon', {})
+  let localVue
+  let router
+  let propsData
 
-  localVue.use(VueRouter)
-  const router = new VueRouter()
+  before(() => {
+    clearStore()
 
-  const propsData = {
-    userInput: '',
-    itens: [],
-    errorHandler: null
-  }
+    localVue = createLocalVue()
+    localVue.component('font-awesome-icon', {})
+    localVue.use(VueRouter)
+    router = new VueRouter(routes)
 
-  it('Render component when mount', () => {
+    propsData = {
+      userInput: '',
+      itens: [],
+      errorHandler: null
+    }
+  })
+
+  it('should render component when mount', () => {
     const wrapper = shallowMount(Home, {
       localVue,
       store,
@@ -95,7 +103,6 @@ describe('Home.vue', () => {
       propsData
     })
     await wrapper.vm.redirectDetailsPage()
-
     expect(wrapper.vm.$route.path).to.equal('/details')
   })
 

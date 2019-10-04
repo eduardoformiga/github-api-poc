@@ -13,6 +13,9 @@ const getters = {
 const mutations = {
   setStarred(state, payload) {
     state.starred = payload
+  },
+  clearStarred(state) {
+    state.starred = []
   }
 }
 
@@ -21,6 +24,9 @@ const actions = {
     const result = await getStarredByUser(user)
     commit('setStarred', result)
     dispatch('setPreference', 'starred', { root: true })
+  },
+  clearStarred({ commit }) {
+    commit('clearStarred')
   }
 }
 

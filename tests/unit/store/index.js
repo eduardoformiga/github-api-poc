@@ -7,7 +7,7 @@ import user from './modules/user'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   ...global,
   modules: {
     repos,
@@ -15,3 +15,10 @@ export default new Vuex.Store({
     user
   }
 })
+
+export const clearStore = () => {
+  store.dispatch('clear')
+  store.dispatch('user/clearUser')
+  store.dispatch('repos/clearRepos')
+  store.dispatch('starred/clearStarred')
+}
