@@ -1,8 +1,15 @@
 # github-api-poc
 
+A project using Github API with VueJS, Vuex, VueRouter, SASS, ESLint, Prettier , Font Awesome, Mocha, chai and other cool features. 
+
 ## Project setup
 ```
 npm install
+```
+
+### Run your unit tests
+```
+npm run test:unit
 ```
 
 ### Compiles and hot-reloads for development
@@ -18,16 +25,6 @@ npm run build
 ### Run your tests
 ```
 npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
 ```
 
 ### Customize configuration
